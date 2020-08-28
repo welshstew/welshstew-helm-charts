@@ -1,0 +1,21 @@
+{{- if .Values.route.enabled -}}
+{{- $fullName := include "nodejs-mongo-persistent.fullname" . -}}
+{{- $svcPort := .Values.nodejs.service.port -}}
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  name: {{ $fullName }}
+  labels:
+    {{- include "nodejs-mongo-persistent.labels" . | nindent 4 }}
+spec:
+  host: {{ .Values.route.host | quote }}
+  port:
+    targetPort: {{ .Values.route.targetPort | default "8080-tcp" }}
+  to:
+    kind: Service
+    name: {{ $fullName }}
+    weight: 100
+{{ end }}

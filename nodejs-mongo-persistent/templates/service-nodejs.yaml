@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "nodejs-mongo-persistent.fullname" . }}-nodejs
+  labels:
+    {{- include "nodejs-mongo-persistent.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.nodejs.service.type }}
+  ports:
+    - port: {{ .Values.nodejs.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "nodejs-mongo-persistent.selectorLabels" . | nindent 4 }}
