@@ -4,12 +4,14 @@ metadata:
   name: {{ include "nodejs-mongo-persistent.fullname" . }}-mongo
   labels:
     {{- include "nodejs-mongo-persistent.labels" . | nindent 4 }}
+    {{- include "nodejs-mongo-persistent.labels.backend" . | nindent 4 }}
 spec:
   type: {{ .Values.mongo.service.type }}
   ports:
     - port: 27017
-      targetPort: http
+      targetPort: 27017
       protocol: TCP
       name: mongo
   selector:
     {{- include "nodejs-mongo-persistent.selectorLabels" . | nindent 4 }}
+    {{- include "nodejs-mongo-persistent.selectorLabels.backend" . | nindent 4 }}

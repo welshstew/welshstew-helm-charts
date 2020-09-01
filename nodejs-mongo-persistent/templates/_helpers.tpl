@@ -44,12 +44,42 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
+Backend labels
+*/}}
+{{- define "nodejs-mongo-persistent.labels.backend" -}}
+app.component.type: backend
+{{- end -}}
+
+{{/*
+Frontend labels
+*/}}
+{{- define "nodejs-mongo-persistent.labels.frontend" -}}
+app.component.type: frontend
+{{- end -}}
+
+
+{{/*
 Selector labels
 */}}
 {{- define "nodejs-mongo-persistent.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "nodejs-mongo-persistent.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
+
+{{/*
+Selector labels - backend
+*/}}
+{{- define "nodejs-mongo-persistent.selectorLabels.backend" -}}
+app.component.type: backend
+{{- end -}}
+
+{{/*
+Selector labels - frontend
+*/}}
+{{- define "nodejs-mongo-persistent.selectorLabels.frontend" -}}
+app.component.type: frontend
+{{- end -}}
+
 
 {{/*
 Create the name of the service account to use

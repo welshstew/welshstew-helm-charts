@@ -4,15 +4,18 @@ metadata:
   name: {{ include "nodejs-mongo-persistent.fullname" . }}-mongo
   labels:
     {{- include "nodejs-mongo-persistent.labels" . | nindent 4 }}
+    {{- include "nodejs-mongo-persistent.labels.backend" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "nodejs-mongo-persistent.selectorLabels" . | nindent 6 }}
+      {{- include "nodejs-mongo-persistent.selectorLabels" . | nindent 6 }}      
+      {{- include "nodejs-mongo-persistent.selectorLabels.backend" . | nindent 6 }}
   template:
     metadata:
       labels:
         {{- include "nodejs-mongo-persistent.selectorLabels" . | nindent 8 }}
+        {{- include "nodejs-mongo-persistent.selectorLabels.backend" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
