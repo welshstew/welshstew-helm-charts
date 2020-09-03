@@ -22,6 +22,7 @@ mongo:
 nodejs:
   image:
     repository: quay.io/swinches/nodejs-mongo-persistent
+    tag: 1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP

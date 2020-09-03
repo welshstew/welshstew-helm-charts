@@ -48,7 +48,7 @@ spec:
                 name: {{ include "nodejs-mongo-persistent.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.nodejs.image.repository }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.nodejs.image.repository }}:{{ .Values.nodejs.image.tag }}"
           imagePullPolicy: {{ .Values.nodejs.image.pullPolicy }}
           ports:
             - name: http
