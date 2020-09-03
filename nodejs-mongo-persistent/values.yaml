@@ -10,8 +10,12 @@ mongo:
     repository: registry.redhat.io/rhscl/mongodb-36-rhel7@sha256:fa0d0c43f79410d7b2edeb78329e6bf5c9ca5ced141b12341eb34a4042a1dc0a
     pullPolicy: IfNotPresent
   resources:
+    requests: 
+      memory: 128Mi
+      cpu: 200m
     limits:
-      memory: 512Mi
+      memory: 256Mi
+      cpu: 500m
   service:
     type: ClusterIP
     port: 27017
@@ -24,11 +28,16 @@ nodejs:
     repository: quay.io/swinches/nodejs-mongo-persistent
     tag: 1.0
     pullPolicy: IfNotPresent
+  resources:
+    requests: 
+      memory: 128Mi
+      cpu: 200m
+    limits:
+      memory: 256Mi
+      cpu: 500m
   service:
     type: ClusterIP
     port: 8080
-
-
 
 
 imagePullSecrets: []

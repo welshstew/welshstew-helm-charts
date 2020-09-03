@@ -78,7 +78,7 @@ spec:
             successThreshold: 1
             timeoutSeconds: 1
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.mongo.resources | nindent 12 }}
           volumeMounts:
           - name: mongodb-data
             mountPath: /var/lib/mongodb/data
