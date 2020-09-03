@@ -1,4 +1,4 @@
 Congratulations! You have installed your app with Helm!
 Run the following commands to get the URL to your application! (but wait for the pods to be up!)
-export ROUTE_NAME=$(kubectl get routes --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "nodejs-mongo-persistent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath={.spec.host})
+export ROUTE_NAME=$(kubectl get routes --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "nodejs-mongo-persistent.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath={.items[0].spec.host})
 echo 'http://$ROUTE_NAME'
