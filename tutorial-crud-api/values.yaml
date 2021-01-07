@@ -1,0 +1,87 @@
+# Default values for tutorial-crud-api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+
+mongo:
+  image:
+    repository: registry.redhat.io/rhscl/mongodb-36-rhel7@sha256:fa0d0c43f79410d7b2edeb78329e6bf5c9ca5ced141b12341eb34a4042a1dc0a
+    pullPolicy: IfNotPresent
+  resources:
+    requests: 
+      memory: 128Mi
+      cpu: 200m
+    limits:
+      memory: 256Mi
+      cpu: 500m
+  service:
+    type: ClusterIP
+    port: 27017
+  storage: 1Gi
+    
+
+
+nodejs:
+  image:
+    repository: quay.io/swinches/tutorial-crud-api
+    tag: latest
+    pullPolicy: Always
+  resources:
+    requests: 
+      memory: 128Mi
+      cpu: 200m
+    limits:
+      memory: 256Mi
+      cpu: 500m
+  service:
+    type: ClusterIP
+    port: 8080
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+route:
+  enabled: true
+  host: null
+  targetPort: http
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

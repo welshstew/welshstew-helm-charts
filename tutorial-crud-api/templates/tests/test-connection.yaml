@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "tutorial-crud-api.fullname" . }}-test-connection"
+  labels:
+{{ include "tutorial-crud-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "tutorial-crud-api.fullname" . }}:{{ .Values.nodejs.service.port }}']
+  restartPolicy: Never
