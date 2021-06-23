@@ -1,0 +1,33 @@
+{{- define "config-sqlscript" }}
+CREATE TABLE IF NOT EXISTS employees (
+   employee_id   NUMERIC       NOT NULL,
+   first_name    VARCHAR(1000) NOT NULL,
+   last_name     VARCHAR(1000) NOT NULL,
+   date_of_birth DATE                  ,
+   phone_number  VARCHAR(1000) NOT NULL,
+   junk          CHAR(1000)            ,
+   CONSTRAINT employees_pk PRIMARY KEY (employee_id)
+);
+
+INSERT INTO employees(employee_id,first_name, last_name, date_of_birth,phone_number,junk) VALUES (111111, 'Test', 'User', '2000-01-01', '123456789', 'junk');
+
+-- Enable PostGIS (as of 3.0 contains just geometry/geography)
+CREATE EXTENSION postgis;
+-- enable raster support (for 3+)
+CREATE EXTENSION postgis_raster;
+-- Enable Topology
+CREATE EXTENSION postgis_topology;
+-- Enable PostGIS Advanced 3D
+-- and other geoprocessing algorithms
+-- sfcgal not available with all distributions
+CREATE EXTENSION postgis_sfcgal;
+-- fuzzy matching needed for Tiger
+CREATE EXTENSION fuzzystrmatch;
+-- rule based standardizer
+CREATE EXTENSION address_standardizer;
+-- example rule data set
+CREATE EXTENSION address_standardizer_data_us;
+-- Enable US Tiger Geocoder
+CREATE EXTENSION postgis_tiger_geocoder;
+
+{{- end}}

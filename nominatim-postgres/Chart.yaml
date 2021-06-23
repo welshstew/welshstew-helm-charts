@@ -1,0 +1,8 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: Postgres with a post install sql step
+home: https://github.com/welshstew/welshstew-helm-charts
+name: postgres
+icon: https://user-images.githubusercontent.com/24623425/36042969-f87531d4-0d8a-11e8-9dee-e87ab8c6a9e3.png
+version: 1.0.0
+maintainers: no one

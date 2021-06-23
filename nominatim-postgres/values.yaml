@@ -1,0 +1,87 @@
+deployment:
+  additionalContainers: null
+  additionalVolumeMounts: null
+  additionalVolumes: null
+  annotations: {}
+  initContainers: null
+  postStart:
+    command: null
+  preStart:
+    command: null
+  terminationGracePeriodSeconds: 120
+deploymentStrategy: {}
+postgres:
+  env:
+  - name: POSTGRESQL_USER
+    valueFrom:
+      secretKeyRef:
+        key: database-user
+        name: postgres-secret
+  - name: POSTGRESQL_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        key: database-password
+        name: postgres-secret
+  - name: POSTGRESQL_DATABASE
+    valueFrom:
+      secretKeyRef:
+        key: database-name
+        name: postgres-secret
+  - name: POSTGRESQL_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        key: postgres-user-password
+        name: postgres-secret
+  hostAliases: []
+  imageName: quay.io/swinches/nominatim-postgresql:latest
+# registry.redhat.io/rhel8/postgresql-12:latest
+  imagePullPolicy: IfNotPresent
+  imagePullSecret: ""
+  livenessProbe:
+    exec:
+      command:
+      - /usr/libexec/check-container
+      - --live
+    failureThreshold: 3
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 10
+  postgresPort: 5432
+  podAnnotations: {}
+  readinessProbe:
+    exec:
+      command:
+      - /usr/libexec/check-container
+    failureThreshold: 3
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  resources: {}
+  service:
+    type: NodePort
+persistence:
+  accessMode: ReadWriteOnce
+  enabled: true
+  storageSize: 8Gi
+replicaCount: 1
+secret:
+  data: 
+    database-name: c2FtcGxlZGI=
+    database-password: dWZxNktrRVlYa1JLS09EZA==
+    database-user: dXNlcjIyQw==
+    postgres-user-password: cm9vdHlyb290Cg==
+  enabled: false
+  readOnly: true
+service:
+  annotations: {}
+  enabled: true
+  labels: {}
+  ports:
+  - name: postgres-service
+    port: 5432
+    targetPort: 5432
+statefulset:
+  enabled: false
+tolerations: []

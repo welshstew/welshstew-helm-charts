@@ -1,0 +1,7 @@
+Question is, did it really work?
+I'd check it if I were you.  
+Fire up your favourite Postgres DB Client (or DBBeaver)
+`oc port-forward $(oc get pods -l app=postgres -o name) 5432`
+connect with:
+user: postgres
+password: rootyroot
