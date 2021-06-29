@@ -37,14 +37,11 @@ spec:
         - name: SQLSCRIPT
           value: /opt/scripts/my-file.sql
         - name: PGUSER
-          valueFrom:
-            secretKeyRef:
-              key: database-user
-              name: postgres-secret
+          value: postgres
         - name: PGPASSWORD
           valueFrom:
             secretKeyRef:
-              key: database-password
+              key: postgres-user-password
               name: postgres-secret
         - name: PGDATABASE
           valueFrom:

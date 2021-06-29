@@ -113,11 +113,6 @@ spec:
         - name: {{ template "postgres.fullname" . }}-backup
           emptyDir: {}
         {{- end }}
-        {{- if .Values.config.enabled }}
-        - name: {{ template "postgres.name" . }}-conf
-          configMap:
-            name: {{ template "postgres.name" . }}-conf
-        {{- end }}
         {{- if .Values.secret.enabled }}
         - name: {{ template "postgres.name" . }}-secret
           secret:
