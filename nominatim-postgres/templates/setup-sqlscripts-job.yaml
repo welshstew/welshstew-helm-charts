@@ -1,16 +1,11 @@
 ---
 apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: postgres-setup
-  labels:
-    app: postgres-setup
----
-apiVersion: v1
 kind: ConfigMap
 data:
   my-file.sql: |-
     {{- include "config-sqlscript" . | indent 4 }}
+  env.env: |-
+    {{- include "config-nominatim-env" . | indent 4 }}
 metadata:
   name: postgressetup
   labels:
@@ -31,7 +26,7 @@ spec:
       name: postgres-setup-job
     spec:
       restartPolicy: OnFailure
-      serviceAccountName: postgres-setup
+      serviceAccountName: default
       containers:
       - env:
         - name: SQLSCRIPT
@@ -62,3 +57,36 @@ spec:
       - name: sql-script
         configMap:
           name: postgressetup
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nominatim-dataload
+  labels:
+    app: nominatim-dataload
+spec:
+  backoffLimit: 50
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      name: nominatim-dataload-job
+    spec:
+      restartPolicy: OnFailure
+      serviceAccountName: default
+      containers:
+      - name: run-dataload
+        image: quay.io/swinches/nominatim-postgresql:08071610
+        command: ["sh", "-c", "cp /opt/scripts/env.env /tmp/store/.env && pushd /tmp/store && wget -q  https://download.geofabrik.de/europe/monaco-latest.osm.pbf -O monaco-latest.osm.pbf && nominatim import --osm-file monaco-latest.osm.pbf && popd"]
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: /tmp/store
+          name: some-store
+        - mountPath: /opt/scripts
+          name: sql-script
+      volumes:
+      - name: sql-script
+        configMap:
+          name: postgressetup
+      - name: some-store
+        emptyDir: {}

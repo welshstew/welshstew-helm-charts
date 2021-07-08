@@ -33,7 +33,7 @@ postgres:
         key: postgres-user-password
         name: postgres-secret
   hostAliases: []
-  imageName: quay.io/swinches/nominatim-postgresql:latest
+  imageName: quay.io/swinches/nominatim-postgresql:08071610
 # registry.redhat.io/rhel8/postgresql-12:latest
   imagePullPolicy: IfNotPresent
   imagePullSecret: ""

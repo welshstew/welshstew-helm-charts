@@ -1,0 +1,4 @@
+{{- define "config-nominatim-env" }}
+NOMINATIM_DATABASE_DSN="pgsql:dbname=monaco;user=user22C;password=ufq6KkEYXkRKKODd;host=postgres-service.nominatim-test.svc.cluster.local;port=5432"
+NOMINATIM_DATABASE_MODULE_PATH="/opt/app-root/src/build/module/"
+{{- end}}

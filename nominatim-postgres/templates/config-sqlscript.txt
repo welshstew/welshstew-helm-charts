@@ -30,4 +30,8 @@ CREATE EXTENSION address_standardizer_data_us;
 -- Enable US Tiger Geocoder
 CREATE EXTENSION postgis_tiger_geocoder;
 
+CREATE USER "www-data" WITH PASSWORD 'www-data';
+
+ALTER USER "user22C" with superuser;
+
 {{- end}}
