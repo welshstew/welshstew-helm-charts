@@ -7,7 +7,7 @@ replicaCount: 1
 
 mongo:
   image:
-    repository: registry.redhat.io/rhscl/mongodb-36-rhel7@sha256:fa0d0c43f79410d7b2edeb78329e6bf5c9ca5ced141b12341eb34a4042a1dc0a
+    repository: registry.redhat.io/rhscl/mongodb-36-rhel7@sha256:8dc9932eabd30f2ee4d0b882500c65b48f3c2fbbd85bfd51d0d18410af404a39
     pullPolicy: IfNotPresent
   resources:
     requests: 
